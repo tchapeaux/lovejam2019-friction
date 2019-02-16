@@ -31,7 +31,7 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat) 
-    if key == "kp1" then
+    if key == "o" then
         currentView = Level1:new()
         currentView:init()
     elseif key == "kp2" then

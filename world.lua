@@ -32,8 +32,8 @@ function World:draw()
     love.graphics.setColor(1, 1, 1)
     for i = 1, #self.particles do
         local pS = self.particles[i]
-        print(pS.count)
-        print(pS:getCount())
+        -- print(pS.count)
+        -- print(pS:getCount())
         love.graphics.draw(pS, 0, 0)
     end
 end
@@ -45,13 +45,15 @@ function World:beginContact(fixA, fixB, coll)
 
     pS:setPosition(x, y)
     pS:setColors(1, 1, 1, 1, 1, 1, 1, 1)
-    pS:setDirection(- math.pi / 4)
-    pS:setSpread(2 * math.pi)
+    pS:setDirection(-math.pi/4)
+    pS:setSpread(math.pi/4)
     pS:setSizes(1)
     pS:setSpeed(100)
-    pS:setBufferSize(10)
+    pS:setBufferSize(2)
     pS:setEmissionRate(10)
-    pS:setParticleLifetime(5)
+    pS:setParticleLifetime(1)
+    pS:setEmitterLifetime(1)
+    pS:setSizes(0.5, 0.3, 0.1)
     
     pS:start()
     
