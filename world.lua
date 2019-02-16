@@ -39,11 +39,12 @@ end
 
 function World:beginContact(fixA, fixB, coll)
     local x, y = coll:getPositions()
+    local vx, vy = coll:getNormal()
     local pS = love.graphics.newParticleSystem(assets.particle, 10)
 
     pS:setPosition(x, y)
     pS:setColors(1, 1, 1, 1, 1, 1, 1, 1)
-    pS:setDirection(-math.pi/4)
+    pS:setDirection(math.atan2(vx, vy) + math.pi / 2)
     pS:setSpread(math.pi/4)
     pS:setSizes(1)
     pS:setSpeed(100)
