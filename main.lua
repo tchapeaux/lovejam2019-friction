@@ -1,3 +1,6 @@
+require('load-assets')
+
+local Anim2 = require('anim2')
 local Level1 = require("level1")
 local Level2 = require("level2")
 local Title = require("title")
@@ -5,18 +8,6 @@ local Title = require("title")
 function love.load()
     wScr = 600
     hScr = 600
-
-    assets = {}
-    assets.credit_card = love.graphics.newImage("assets/credt-card.png")
-    assets.fifty_cents = love.graphics.newImage("assets/fifty-cents.png")
-    assets.finger = love.graphics.newImage("assets/finger.png")
-    assets.one_euro = love.graphics.newImage("assets/one-euro.png")
-    assets.particle = love.graphics.newImage("assets/particle.png")
-    assets.phone = love.graphics.newImage("assets/phone.png")
-    assets.scissors = love.graphics.newImage("assets/scissors.png")
-    assets.title = love.graphics.newImage("assets/titleScreenStart.png")
-    assets.two_euros = love.graphics.newImage("assets/two-euros.png")
-    assets.wallet = love.graphics.newImage("assets/wallet.png")
 
     currentView = Title:new()
 
@@ -32,12 +23,22 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat) 
+    if currentView.keypressed then
+        currentView:keypressed(key, scancode, isrepeat)
+    end
+
     if key == "o" then
         currentView = Level1:new()
         currentView:init()
     elseif key == "p" then
-        currentView = Level2:new()
+        function goToLevel2()
+            currentView = Level2:new()
+            currentView:init()    
+        end
+
+        currentView = Anim2:new(goToLevel2)
         currentView:init()
+
     elseif key == 'escape' then
       love.event.quit()
     end
