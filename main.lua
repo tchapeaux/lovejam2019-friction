@@ -35,8 +35,10 @@ function love.keypressed(key, scancode, isrepeat)
     if key == "o" then
         currentView = Level1:new()
         currentView:init()
-    elseif key == "kp2" then
+    elseif key == "p" then
         currentView = Level2:new()
         currentView:init()
+    elseif key == 'escape' then
+      love.event.quit()
     end
 end
