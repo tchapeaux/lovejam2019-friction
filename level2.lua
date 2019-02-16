@@ -1,13 +1,13 @@
-local Game ={}
+local Level2 ={}
 
-function Game:new(o)
+function Level2:new(o)
     o = o or {}
     setmetatable(o, self)
     self.__index = self
     return o
 end
 
-function Game:init() 
+function Level2:init() 
     love.physics.setMeter(64) --the height of a meter our worlds will be 64px
     self.world = love.physics.newWorld(0, 9.81*64, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
     self.scrollTimer = 0
@@ -20,14 +20,18 @@ function Game:init()
     self.objects.ground.shape = love.physics.newRectangleShape(200, 50) --make a rectangle with a width of 650 and a height of 50
     self.objects.ground.fixture = love.physics.newFixture(self.objects.ground.body, self.objects.ground.shape); --attach shape to body
    
-    self.objects.player = {}
-    self.objects.player.body = love.physics.newBody(self.world, wScr/2, 10, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-    self.objects.player.body:setFixedRotation(true)
-    self.objects.player.body:setLinearDamping(0.5)
-    self.objects.player.shape = love.physics.newRectangleShape(10, 10)
-    self.objects.player.fixture = love.physics.newFixture(self.objects.player.body, self.objects.player.shape, 10) -- Attach fixture to body and give it a density of 1.
-    self.objects.player.fixture:setRestitution(0.3) --let the ball bounce
-    self.objects.player.fixture:setFriction(0.8)
+    local player = {}
+    player.sprite = assets.finger
+    player.shapeWidth = 30
+    player.shapeHeight = 30
+    player.body = love.physics.newBody(self.world, wScr/2, 10, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
+    player.body:setFixedRotation(true)
+    player.body:setLinearDamping(0.5)
+    player.shape = love.physics.newRectangleShape(player.sprite:getWidth(), player.sprite:getHeight())
+    player.fixture = love.physics.newFixture(player.body, player.shape, 10) -- Attach fixture to body and give it a density of 1.
+    player.fixture:setRestitution(0.3) --let the ball bounce
+    player.fixture:setFriction(0.8)
+    self.objects.player = player
 
     -- edges of the world
     self.objects.edges = {}
@@ -45,37 +49,20 @@ function Game:init()
 
     self.objects.walls = {}
     for i = 1,10 do
-      local blockLeft = {}
-      blockLeft.body = love.physics.newBody(self.world, 100, 50 + 500 * i)
-      blockLeft.shape = love.physics.newRectangleShape(0, 0, 50, 300)
-      blockLeft.fixture = love.physics.newFixture(blockLeft.body, blockLeft.shape, 5) -- A higher density gives it more mass.
-      table.insert(self.objects.walls, blockLeft)
+      local newBlock = {}
+      newBlock.body = love.physics.newBody(self.world, math.random() * wScr, 50 + 500 * i)
+      newBlock.body:setAngle(math.random() * 2 * math.pi)
+      newBlock.shape = love.physics.newRectangleShape(0, 0, 50, 300)
+      newBlock.fixture = love.physics.newFixture(newBlock.body, newBlock.shape, 5) -- A higher density gives it more mass.
+      table.insert(self.objects.walls, newBlock)
     end
-
-    for i = 1,10 do
-      local blockRight = {}
-      blockRight.body = love.physics.newBody(self.world, wScr - 100, 100 + 500 * i)
-      blockRight.shape = love.physics.newRectangleShape(0, 0, 50, 300)
-      blockRight.fixture = love.physics.newFixture(blockRight.body, blockRight.shape, 5) -- A higher density gives it more mass.
-      -- blockRight.fixture:setFriction(1)
-      table.insert(self.objects.walls, blockRight)
-    end
-
-    for i = 1, 10 do
-        local blockDiagonal = {}
-        blockDiagonal.body = love.physics.newBody(self.world, wScr / 2, 75 + 500 * i)
-        blockDiagonal.body:setAngle(-math.pi / 4 + (-1 * (i % 2)) * math.pi / 2)
-        blockDiagonal.shape = love.physics.newRectangleShape(0, 0, 200, 50)
-        blockDiagonal.fixture = love.physics.newFixture(blockDiagonal.body, blockDiagonal.shape, 5) -- A higher density gives it more mass.
-        table.insert(self.objects.walls, blockDiagonal)
-      end
 
     --initial graphics setup
     love.graphics.setBackgroundColor(61 / 255, 30 / 255, 12 / 255) --set the background color to a nice blue
 
 end
 
-function Game:update(dt) 
+function Level2:update(dt) 
     self.world:update(dt) --this puts the world into motion
     
     self.scrollTimer = self.scrollTimer + dt;
@@ -100,7 +87,7 @@ function Game:update(dt)
     
 end
 
-function Game:draw() 
+function Level2:draw() 
     love.graphics.translate(0, self.scrollTimer * -100)
 
     love.graphics.setColor(0.28, 0.63, 0.05) -- set the drawing color to green for the ground
@@ -121,4 +108,4 @@ function Game:draw()
 
 end
 
-return Game
+return Level2
