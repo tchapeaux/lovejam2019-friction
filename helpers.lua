@@ -10,6 +10,8 @@ function objectFromSprite(o, world, sprite, isDynamic)
     o.shape = love.physics.newRectangleShape(o.shapeWidth, o.shapeHeight)
     o.fixture = love.physics.newFixture(o.body, o.shape, 1)
 
+    o.fixture:setFriction(0.6)
+
     return o
 end
 

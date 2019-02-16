@@ -10,8 +10,6 @@ function Player:new(world)
     o.body:setPosition(wScr/2, 10)
     o.body:setFixedRotation(true)
     o.body:setLinearDamping(0.5)
-    o.fixture:setRestitution(0.3)
-    o.fixture:setFriction(0.8)
 
     return o
 end
