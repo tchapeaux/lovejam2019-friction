@@ -28,8 +28,8 @@ function Level1:init()
     self.objects.player.body = love.physics.newBody(self.world._w, wScr/2, 10, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
     self.objects.player.body:setFixedRotation(true)
     self.objects.player.body:setLinearDamping(0.5)
-    self.objects.player.shape = love.physics.newRectangleShape(10, 10)
-    self.objects.player.fixture = love.physics.newFixture(self.objects.player.body, self.objects.player.shape, 10) -- Attach fixture to body and give it a density of 1.
+    self.objects.player.shape = love.physics.newRectangleShape(30, 100)
+    self.objects.player.fixture = love.physics.newFixture(self.objects.player.body, self.objects.player.shape, 1) -- Attach fixture to body and give it a density of 1.
     self.objects.player.fixture:setRestitution(0.3) --let the ball bounce
     self.objects.player.fixture:setFriction(0.8)
 
