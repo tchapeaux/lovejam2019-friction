@@ -82,10 +82,11 @@ function Level1:update(dt)
 end
 
 function Level1:draw() 
+    love.graphics.translate(0, self.scrollTimer * -100)
+  
     self.world:draw()
 
-  -- love.graphics.translate(0, self.scrollTimer * -100)
-
+    
     love.graphics.setColor(0.28, 0.63, 0.05) -- set the drawing color to green for the ground
     love.graphics.polygon("fill", self.objects.ground.body:getWorldPoints(self.objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
    
