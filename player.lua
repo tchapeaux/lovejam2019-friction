@@ -1,3 +1,4 @@
+require('helpers')
 local Player = {}
 
 function Player:new(world)
@@ -5,15 +6,11 @@ function Player:new(world)
     setmetatable(o, self)
     self.__index = self
 
-    o.body = love.physics.newBody(world, wScr/2, 10, "dynamic") --place the body in the center of the world and make it dynamic, so it can move around
-    o.sprite = assets.finger
-    o.shapeWidth = o.sprite:getWidth()
-    o.shapeHeight = o.sprite:getHeight()
+    objectFromSprite(o, world, assets.finger, true)
+    o.body:setPosition(wScr/2, 10)
     o.body:setFixedRotation(true)
     o.body:setLinearDamping(0.5)
-    o.shape = love.physics.newRectangleShape(o.shapeWidth, o.shapeHeight)
-    o.fixture = love.physics.newFixture(o.body, o.shape, 1) -- Attach fixture to body and give it a density of 1.
-    o.fixture:setRestitution(0.3) --let the ball bounce
+    o.fixture:setRestitution(0.3)
     o.fixture:setFriction(0.8)
 
     return o
@@ -41,8 +38,16 @@ function Player:update(dt)
 end
 
 function Player:draw(dt)
-    love.graphics.setColor(0.76, 0.18, 0.05) --set the drawing color to red for the ball
-    love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
+    love.graphics.setColor(1, 1, 1)
+
+    local posX, posY = self.body:getWorldCenter()
+
+    -- love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
+    love.graphics.draw(
+        self.sprite,
+        posX - self.shapeWidth / 2,
+        posY - self.shapeHeight / 2
+    )
 end
 
 return Player

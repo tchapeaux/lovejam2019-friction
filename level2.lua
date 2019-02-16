@@ -19,12 +19,6 @@ function Level2:init()
 
     self.objects = {} -- table to hold all our physical objects
    
-    self.objects.ground = {}
-    self.objects.ground.body = love.physics.newBody(self.world._w, wScr/2, 500) --remember, the shape (the rectangle we create next) anchors to the body from its center, so we have to move it to (650/2, 650-50/2)
-    self.objects.ground.body:setAngle(math.pi / 4)
-    self.objects.ground.shape = love.physics.newRectangleShape(200, 50) --make a rectangle with a width of 650 and a height of 50
-    self.objects.ground.fixture = love.physics.newFixture(self.objects.ground.body, self.objects.ground.shape); --attach shape to body
-   
     self.player = Player:new(self.world._w)
 
     -- edges of the world
@@ -42,12 +36,22 @@ function Level2:init()
 
 
     self.objects.walls = {}
-    for i = 1,10 do
+    local _sprites = {
+        assets.credit_card,
+        assets.fifty_cents,
+        assets.phone,
+        assets.scissors,
+        assets.one_euro,
+        assets.two_euros,
+        assets.wallet
+    }
+    for i = 1,50 do
       local newBlock = {}
-      newBlock.body = love.physics.newBody(self.world._w, math.random() * wScr, 50 + 500 * i)
-      newBlock.body:setAngle(math.random() * 2 * math.pi)
-      newBlock.shape = love.physics.newRectangleShape(0, 0, 50, 300)
-      newBlock.fixture = love.physics.newFixture(newBlock.body, newBlock.shape, 5) -- A higher density gives it more mass.
+      objectFromSprite(newBlock, self.world._w, _sprites[1 + (i % #_sprites)], false)
+      newBlock.body:setPosition(
+          0.1 * wScr + math.random() * (0.8 * wScr),
+          300 + 300 * i + ((-0.5 + math.random()) * 100) 
+      )
       table.insert(self.objects.walls, newBlock)
     end
 
@@ -69,14 +73,13 @@ end
 function Level2:draw() 
     love.graphics.translate(0, self.scrollTimer * -100)
 
-    love.graphics.setColor(0.28, 0.63, 0.05) -- set the drawing color to green for the ground
-    love.graphics.polygon("fill", self.objects.ground.body:getWorldPoints(self.objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
-   
+    self.world:draw()
+
     self.player:draw()
    
     love.graphics.setColor(0.20, 0.20, 0.20) -- set the drawing color to grey for the blocks
     for i=1,#self.objects.walls do
-      love.graphics.polygon("fill", self.objects.walls[i].body:getWorldPoints(self.objects.walls[i].shape:getPoints()))
+      drawSpriteObject(self.objects.walls[i])
     end
 
     love.graphics.setColor(94 / 255, 8 / 255, 2 / 255) -- set the drawing color to grey for the blocks
