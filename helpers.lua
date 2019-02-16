@@ -15,7 +15,6 @@ function objectFromSprite(o, world, sprite, isDynamic)
     return o
 end
 
-
 function drawSpriteObject(spriteObject)
     love.graphics.setColor(1, 1, 1)
 

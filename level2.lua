@@ -13,6 +13,9 @@ end
 function Level2:init() 
     love.physics.setMeter(64) --the height of a meter our worlds will be 64px
 
+    assets.music.level2:stop()
+    assets.music.level2:play()
+
     self.world = World:new()
 
     self.scrollTimer = 0
@@ -37,13 +40,13 @@ function Level2:init()
 
     self.objects.walls = {}
     local _sprites = {
-        assets.credit_card,
-        assets.fifty_cents,
-        assets.phone,
-        assets.scissors,
-        assets.one_euro,
-        assets.two_euros,
-        assets.wallet
+        assets.level2.credit_card,
+        assets.level2.fifty_cents,
+        assets.level2.phone,
+        assets.level2.scissors,
+        assets.level2.one_euro,
+        assets.level2.two_euros,
+        assets.level2.wallet
     }
     for i = 1,50 do
       local newBlock = {}

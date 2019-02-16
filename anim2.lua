@@ -5,12 +5,14 @@ function Anim2:new(onEndCb)
     setmetatable(o, self)
     self.__index = self
 
+    assets.sounds.crowd:play()
+
     o.onEndCb = onEndCb
     o.step = 1
 
     o.images = {}
-    o.images[1] = assets.anim_2_1
-    o.images[2] = assets.anim_2_2
+    o.images[1] = assets.level2.anim_2_1
+    o.images[2] = assets.level2.anim_2_2
     
     o.texts = {}
     o.texts[1] = "OH NON MON TICKET"
@@ -38,7 +40,10 @@ end
 function Anim2:nextStep()
     self.step = self.step + 1
     self.textTimer = 0
-    if (self.step > #self.images) then
+    if (self.step == 2) then
+        assets.sounds.dundundun:play()
+    elseif (self.step > #self.images) then
+        assets.sounds.crowd:stop()
         self.onEndCb()
     end
 end
@@ -53,7 +58,7 @@ function Anim2:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(self.images[self.step], 0, 0)
     love.graphics.setColor(0, 0, 0)
-    love.graphics.setFont(assets.fontMedium)
+    love.graphics.setFont(assets.fonts.fontMedium)
     love.graphics.printf(text, 10, hScr * 0.7, wScr - 20, 'center')
 end
 

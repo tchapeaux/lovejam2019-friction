@@ -8,7 +8,7 @@ function Title:new(o)
 end
 
 function Title:init() 
-
+    assets.music.title:play()
 end
 
 function Title:update(dt) 

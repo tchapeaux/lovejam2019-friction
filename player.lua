@@ -6,6 +6,8 @@ function Player:new(world)
     setmetatable(o, self)
     self.__index = self
 
+    o.world = world
+
     objectFromSprite(o, world, assets.finger, true)
     o.body:setPosition(wScr/2, 10)
     o.body:setFixedRotation(true)

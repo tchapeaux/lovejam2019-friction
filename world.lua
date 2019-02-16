@@ -42,6 +42,12 @@ function World:beginContact(fixA, fixB, coll)
     local vx, vy = coll:getNormal()
     local pS = love.graphics.newParticleSystem(assets.particle, 10)
 
+    if coll:getFriction() < 0.5 then
+        assets.sounds.friction[1]:play()
+    else
+        assets.sounds.friction[2]:play()
+    end
+
     pS:setPosition(x, y)
     pS:setColors(1, 1, 1, 1, 1, 1, 1, 1)
     pS:setDirection(math.atan2(vx, vy) + math.pi / 2)

@@ -10,6 +10,7 @@ function love.load()
     hScr = 600
 
     currentView = Title:new()
+    currentView:init()
 
     love.window.setMode(wScr, hScr)
 end
@@ -28,9 +29,12 @@ function love.keypressed(key, scancode, isrepeat)
     end
 
     if key == "o" then
+        assets.music.title:stop()
+
         currentView = Level1:new()
         currentView:init()
     elseif key == "p" then
+        assets.music.title:stop()
         function goToLevel2()
             currentView = Level2:new()
             currentView:init()    
@@ -38,7 +42,6 @@ function love.keypressed(key, scancode, isrepeat)
 
         currentView = Anim2:new(goToLevel2)
         currentView:init()
-
     elseif key == 'escape' then
       love.event.quit()
     end
