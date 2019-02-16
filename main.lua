@@ -3,8 +3,8 @@ local Level2 = require("level2")
 local Title = require("title")
 
 function love.load()
-    wScr = 800
-    hScr = 800
+    wScr = 600
+    hScr = 600
 
     assets = {}
     assets.credit_card = love.graphics.newImage("assets/credt-card.png")
@@ -14,6 +14,7 @@ function love.load()
     assets.particle = love.graphics.newImage("assets/particle.png")
     assets.phone = love.graphics.newImage("assets/phone.png")
     assets.scissors = love.graphics.newImage("assets/scissors.png")
+    assets.title = love.graphics.newImage("assets/titleScreenStart.png")
     assets.two_euros = love.graphics.newImage("assets/two-euros.png")
     assets.wallet = love.graphics.newImage("assets/wallet.png")
 

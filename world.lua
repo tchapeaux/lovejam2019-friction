@@ -5,15 +5,15 @@ function World:new(o)
     setmetatable(o, self)
     self.__index = self
 
-    self._w = love.physics.newWorld(0, 9.81*64, true)
+    o._w = love.physics.newWorld(0, 9.81*64, true)
 
     local _beginContact = function(fixA, fixB, coll)
-        self:beginContact(fixA, fixB, coll)
+        o:beginContact(fixA, fixB, coll)
     end
 
-    self._w:setCallbacks(_beginContact, nil, nil, nil)
+    o._w:setCallbacks(_beginContact, nil, nil, nil)
 
-    self.particles = {}
+    o.particles = {}
 
     return o
 end
@@ -32,8 +32,6 @@ function World:draw()
     love.graphics.setColor(1, 1, 1)
     for i = 1, #self.particles do
         local pS = self.particles[i]
-        -- print(pS.count)
-        -- print(pS:getCount())
         love.graphics.draw(pS, 0, 0)
     end
 end

@@ -18,8 +18,7 @@ end
 function Title:draw() 
     love.graphics.setBackgroundColor(0, 0, 0)
 
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.printf('LE JEU DE LA FRICTION', 100, 100, wScr, "center")
+    love.graphics.draw(assets.title, 0, 0)
 end
 
 return Title
