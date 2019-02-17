@@ -121,6 +121,8 @@ function Level2:update(dt)
     for i=1,#collisionList do
       local fixA, fixB = collisionList[i]:getFixtures ()
       if fixA:getUserData() == 'ticket' or fixB:getUserData() == 'ticket' then
+        assets.music.level2:stop()
+
         currentView = YouWin:new()
         currentView:init()
       end
