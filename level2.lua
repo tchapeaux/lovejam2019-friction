@@ -177,4 +177,11 @@ function Level2:draw()
     end
   end
 
+function Level2:keypressed(key, scancode, isrepeat)
+    if key == "return" then
+        currentView = Level2:new()
+        currentView:init()
+    end
+end
+
 return Level2

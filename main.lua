@@ -28,21 +28,7 @@ function love.keypressed(key, scancode, isrepeat)
         currentView:keypressed(key, scancode, isrepeat)
     end
 
-    if key == "o" then
-        assets.music.title:stop()
-
-        currentView = Level1:new()
-        currentView:init()
-    elseif key == "p" then
-        assets.music.title:stop()
-        function goToLevel2()
-            currentView = Level2:new()
-            currentView:init()    
-        end
-
-        currentView = Anim2:new(goToLevel2)
-        currentView:init()
-    elseif key == 'escape' then
+    if key == 'escape' then
       love.event.quit()
     end
 end

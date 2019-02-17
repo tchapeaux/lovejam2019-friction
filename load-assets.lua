@@ -17,6 +17,7 @@ assets.level2.two_euros = love.graphics.newImage("assets/two-euros.png")
 assets.level2.wallet = love.graphics.newImage("assets/wallet.png")
 
 assets.fonts = {}
+assets.fonts.fontNormal = love.graphics.newFont("assets/OpenSans-Regular.ttf", 23)
 assets.fonts.fontMedium = love.graphics.newFont("assets/OpenSans-Regular.ttf", 56)
 assets.fonts.fontBig = love.graphics.newFont("assets/OpenSans-Regular.ttf", 100)
 

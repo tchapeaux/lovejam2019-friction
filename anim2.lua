@@ -1,3 +1,5 @@
+local Level2 = require('level2')
+
 local Anim2 ={}
 
 function Anim2:new(onEndCb)
@@ -7,7 +9,6 @@ function Anim2:new(onEndCb)
 
     assets.sounds.crowd:play()
 
-    o.onEndCb = onEndCb
     o.step = 1
 
     o.images = {}
@@ -44,7 +45,8 @@ function Anim2:nextStep()
         assets.sounds.dundundun:play()
     elseif (self.step > #self.images) then
         assets.sounds.crowd:stop()
-        self.onEndCb()
+        currentView = Level2:new()
+        currentView:init()
     end
 end
 
