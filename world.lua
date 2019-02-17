@@ -5,6 +5,8 @@ function World:new(o)
     setmetatable(o, self)
     self.__index = self
 
+    love.physics.setMeter(64) --the height of a meter our worlds will be 64px
+
     o._w = love.physics.newWorld(0, 9.81*64, true)
 
     local _beginContact = function(fixA, fixB, coll)

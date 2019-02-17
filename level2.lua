@@ -11,8 +11,6 @@ function Level2:new(o)
 end
 
 function Level2:init() 
-    love.physics.setMeter(64) --the height of a meter our worlds will be 64px
-
     assets.music.level2:stop()
     assets.music.level2:play()
 

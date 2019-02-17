@@ -11,8 +11,6 @@ function Level1:new(o)
 end
 
 function Level1:init() 
-    love.physics.setMeter(64) --the height of a meter our worlds will be 64px
-
     self.world = World:new()
 
     self.scrollTimer = 0
