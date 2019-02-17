@@ -14,8 +14,8 @@ function Anim2:new(onEndCb)
     o.images[2] = assets.level2.anim_2_2
 
     o.texts = {}
-    o.texts[1] = "OH NON MON TICKET"
-    o.texts[2] = "IL EST DANS MON SAC"
+    o.texts[1] = "Oh no, I need my ticket!"
+    o.texts[2] = "It's somewhere... In my bag..."
 
     o.textTimer = 0
     return o
