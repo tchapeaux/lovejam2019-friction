@@ -1,3 +1,4 @@
+
 local GameOver ={}
 
 function GameOver:new(o)
@@ -21,6 +22,11 @@ function GameOver:draw()
 end
 
 function GameOver:keypressed(key, scancode, ispressed) 
+
+    if key == 'return' then
+        currentView = Level2:new()
+        currentView:init()
+    end
 
 end
 

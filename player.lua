@@ -1,4 +1,3 @@
-require('helpers')
 local Player = {}
 
 function Player:new(world)

@@ -1,9 +1,14 @@
 require('load-assets')
+require('helpers')
 
-local Anim2 = require('anim2')
-local Level1 = require("level1")
-local Level2 = require("level2")
-local Title = require("title")
+Anim2 = require('anim2')
+Level1 = require("level1")
+Level2 = require("level2")
+Title = require("title")
+World = require('world')
+Player = require('player')
+GameOver = require('gameover')
+YouWin = require('youWin')
 
 function love.load()
     wScr = 600

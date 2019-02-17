@@ -1,6 +1,3 @@
-local World = require('world')
-local Player = require('player')
-
 local Level1 ={}
 
 function Level1:new(o)

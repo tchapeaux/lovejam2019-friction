@@ -1,5 +1,3 @@
-local Anim2 = require('anim2')
-
 local Title ={}
 
 function Title:new(o)

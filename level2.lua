@@ -1,8 +1,3 @@
-local World = require('world')
-local Player = require('player')
-local GameOver = require('gameover')
-local YouWin = require('youWin')
-
 local Level2 ={}
 
 function Level2:new(o)

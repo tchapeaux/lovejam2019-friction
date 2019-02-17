@@ -1,5 +1,3 @@
-local Level2 = require('level2')
-
 local Anim2 ={}
 
 function Anim2:new(onEndCb)
