@@ -39,7 +39,8 @@ function Level2:init()
     self.objects.tutorialArea = {}
 
     local o ={}
-    o.body = love.physics.newBody(self.world._w, wScr / 3, 300)
+    self.tutorialY = 300 -- used to trigger scroll
+    o.body = love.physics.newBody(self.world._w, wScr / 3, self.tutorialY)
     o.shape = love.physics.newRectangleShape(2 * wScr / 2, 50)
     o.fixture = love.physics.newFixture(o.body, o.shape, 1)
     o.fixture:setFriction(0.6)
@@ -98,8 +99,8 @@ function Level2:update(dt)
     end
 
     if not self.scrollStart then
-      local sX, sY = self.player.body:getLinearVelocity()
-      if sX ~= 0 then
+      local pX, pY = self.player.body:getWorldCenter()
+      if pY > self.tutorialY then
         self.scrollStart = true
       end
     end
