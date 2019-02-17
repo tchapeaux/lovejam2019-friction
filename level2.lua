@@ -55,7 +55,7 @@ function Level2:init()
         assets.level2.two_euros,
         assets.level2.wallet
     }
-    local nbOfObjects = 10
+    local nbOfObjects = 50
     math.randomseed(51934) -- chosen arbitrarily
     for i = 1,nbOfObjects do
       local newBlock = {}

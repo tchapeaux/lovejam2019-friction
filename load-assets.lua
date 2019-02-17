@@ -29,6 +29,7 @@ assets.music.level2 = love.audio.newSource("assets/DuoTeslar_UniversalFunk.mp3",
 assets.music.level2:setLooping(true)
 assets.music.title = love.audio.newSource("assets/pornophonique_-_sad_robot.mp3", "stream")
 assets.music.title:setLooping(true)
+assets.music.title:setVolume(0.3)
 assets.music.gameOver = love.audio.newSource("assets/MelloHarmony_Haunted.mp3", 'stream')
 assets.music.gameOver:setLooping(true)
 
