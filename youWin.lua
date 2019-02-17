@@ -7,20 +7,20 @@ function YouWin:new(o)
     return o
 end
 
-function YouWin:init() 
+function YouWin:init()
+    assets.sounds.crowdVictory:play()
+end
+
+function YouWin:update(dt)
 
 end
 
-function YouWin:update(dt) 
-
-end
-
-function YouWin:draw() 
+function YouWin:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(assets.youWin, 0, 0)
 end
 
-function YouWin:keypressed(key, scancode, ispressed) 
+function YouWin:keypressed(key, scancode, ispressed)
 
 end
 

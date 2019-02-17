@@ -7,7 +7,7 @@ function Level2:new(o)
     return o
 end
 
-function Level2:init() 
+function Level2:init()
     assets.music.level2:stop()
     assets.music.level2:play()
 
@@ -18,7 +18,7 @@ function Level2:init()
     self.scrollSpeed = 100
 
     self.objects = {} -- table to hold all our physical objects
-   
+
     self.player = Player:new(self.world._w)
 
     -- edges of the world
@@ -36,11 +36,11 @@ function Level2:init()
     table.insert(self.objects.edges, edgeRight)
     edgeRight.fixture:setFriction(0.6)
 
-
     self.objects.tutorialArea = {}
 
     local o ={}
-    o.body = love.physics.newBody(self.world._w, wScr / 3, 300)
+    self.tutorialY = 300 -- used to trigger scroll
+    o.body = love.physics.newBody(self.world._w, wScr / 3, self.tutorialY)
     o.shape = love.physics.newRectangleShape(2 * wScr / 2, 50)
     o.fixture = love.physics.newFixture(o.body, o.shape, 1)
     o.fixture:setFriction(0.6)
@@ -56,14 +56,14 @@ function Level2:init()
         assets.level2.two_euros,
         assets.level2.wallet
     }
-    local nbOfObjects = 40
-    math.randomseed(51934)
+    local nbOfObjects = 50
+    math.randomseed(51934) -- chosen arbitrarily
     for i = 1,nbOfObjects do
       local newBlock = {}
       objectFromSprite(newBlock, self.world._w, _sprites[1 + (i % #_sprites)], false)
       newBlock.body:setPosition(
           0.1 * wScr + math.random() * (0.8 * wScr),
-           400 + 100 * i + ((-0.5 + math.random()) * 50) 
+          400 + 100 * i + ((-0.5 + math.random()) * 50)
       )
       table.insert(self.objects.walls, newBlock)
     end
@@ -88,9 +88,9 @@ function Level2:init()
     love.graphics.setBackgroundColor(61 / 255, 30 / 255, 12 / 255)
 end
 
-function Level2:update(dt) 
+function Level2:update(dt)
     self.world:update(dt) --this puts the world into motion
-    
+
     if self.scrollStart then
       self.scrollTimer = self.scrollTimer + dt
 
@@ -99,8 +99,8 @@ function Level2:update(dt)
     end
 
     if not self.scrollStart then
-      local sX, sY = self.player.body:getLinearVelocity()
-      if sX ~= 0 then
+      local pX, pY = self.player.body:getWorldCenter()
+      if pY > self.tutorialY then
         self.scrollStart = true
       end
     end
@@ -129,13 +129,13 @@ function Level2:update(dt)
     end
   end
 
-function Level2:draw() 
+function Level2:draw()
     love.graphics.translate(0, self.scrollTimer * -self.scrollSpeed)
 
     self.world:draw()
 
     self.player:draw()
-   
+
     for i=1,#self.objects.walls do
       drawSpriteObject(self.objects.walls[i])
     end

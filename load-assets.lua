@@ -29,11 +29,15 @@ assets.music.level2 = love.audio.newSource("assets/DuoTeslar_UniversalFunk.mp3",
 assets.music.level2:setLooping(true)
 assets.music.title = love.audio.newSource("assets/pornophonique_-_sad_robot.mp3", "stream")
 assets.music.title:setLooping(true)
+assets.music.title:setVolume(0.3)
+assets.music.gameOver = love.audio.newSource("assets/MelloHarmony_Haunted.mp3", 'stream')
+assets.music.gameOver:setLooping(true)
 
 assets.sounds = {}
 assets.sounds.friction = {}
 assets.sounds.friction[1] = love.audio.newSource("assets/sound_friction_1.mp3", "static")
 assets.sounds.friction[2] = love.audio.newSource("assets/sound_friction_3.mp3", "static")
-assets.sounds.crowd = love.audio.newSource("assets/102410__jakobthiesen__crowd-waiting-to-board-toronto-island-ferry.mp3", "stream")
-assets.sounds.crowd:setVolume(0.4)
+assets.sounds.crowdWaiting = love.audio.newSource("assets/102410__jakobthiesen__crowd-waiting-to-board-toronto-island-ferry.mp3", "stream")
+assets.sounds.crowdWaiting:setVolume(0.4)
+assets.sounds.crowdVictory = love.audio.newSource("assets/165491__chripei__victory-cry-reverb-2.mp3", 'static')
 assets.sounds.dundundun = love.audio.newSource('assets/45654__simon-lacelle__dun-dun-dun.mp3', "static")
