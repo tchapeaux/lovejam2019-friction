@@ -24,6 +24,7 @@ function Level2:init()
    
     self.player = Player:new(self.world._w)
     self.isGameOver = false
+    self.isYouWin = false
 
     -- edges of the world
     self.objects.edges = {}
@@ -77,6 +78,7 @@ function Level2:init()
     self.objects.ticket = {}
     objectFromSprite(self.objects.ticket, self.world._w, assets.ticket, false)
     self.objects.ticket.body:setPosition(wScr / 2, self.endOfObjects + 200)
+    self.objects.ticket.fixture:setUserData('ticket')
 
     -- GROUND below ticket
     local o ={}
@@ -118,7 +120,17 @@ function Level2:update(dt)
         assets.music.level2:stop()
         self.isGameOver = true
     end
-end
+
+    -- Check winning condition
+    local collisionList = self.world._w:getContactList()
+
+    for i=1,#collisionList do
+      local fixA, fixB = collisionList[i]:getFixtures ()
+      if fixA:getUserData() == 'ticket' or fixB:getUserData() == 'ticket' then
+        self.isYouWin = true
+      end
+    end
+  end
 
 function Level2:draw() 
     love.graphics.translate(0, self.scrollTimer * -self.scrollSpeed)
@@ -152,6 +164,16 @@ function Level2:draw()
       love.graphics.setFont(assets.fonts.fontBig)
       love.graphics.printf("YOU DIED", 0, hScr / 2 - 50, wScr, "center")
     end
-end
+
+    if self.isYouWin then
+      love.graphics.translate(0, self.scrollTimer * self.scrollSpeed)
+
+
+      love.graphics.setColor(0, 0, 1)
+      love.graphics.setFont(assets.fonts.fontBig)
+      love.graphics.printf("YOU WIN", 0, hScr / 2 - 50, wScr, "center")
+
+    end
+  end
 
 return Level2
