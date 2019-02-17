@@ -17,6 +17,7 @@ assets.level2.wallet = love.graphics.newImage("assets/wallet.png")
 
 assets.fonts = {}
 assets.fonts.fontMedium = love.graphics.newFont("assets/OpenSans-Regular.ttf", 56)
+assets.fonts.fontBig = love.graphics.newFont("assets/OpenSans-Regular.ttf", 100)
 
 assets.music = {}
 assets.music.level2 = love.audio.newSource("assets/DuoTeslar_UniversalFunk.mp3", "stream")

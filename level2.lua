@@ -16,11 +16,14 @@ function Level2:init()
 
     self.world = World:new()
 
+    self.scrollStart = false
     self.scrollTimer = 0
+    self.scrollSpeed = 100
 
     self.objects = {} -- table to hold all our physical objects
    
     self.player = Player:new(self.world._w)
+    self.isGameOver = false
 
     -- edges of the world
     self.objects.edges = {}
@@ -75,15 +78,33 @@ end
 function Level2:update(dt) 
     self.world:update(dt) --this puts the world into motion
     
-    self.scrollTimer = self.scrollTimer + dt;
+    if not self.isGameOver and self.scrollStart then
+      self.scrollTimer = self.scrollTimer + dt
+    end
+
+    if not self.scrollStart then
+      local sX, sY = self.player.body:getLinearVelocity()
+      print(sX)
+      if sX ~= 0 then
+        self.scrollStart = true
+      end
+    end
 
     self.player:update(dt)
 
-    
+    -- Check if player is dead
+    local _, y = self.player.body:getWorldCenter()
+    if not self.isGameOver and (
+      y + self.player.shapeHeight / 2 < self.scrollTimer * self.scrollSpeed
+      or y - self.player.shapeHeight / 2> self.scrollTimer * self.scrollSpeed + hScr
+    ) then
+        assets.music.level2:stop()
+        self.isGameOver = true
+    end
 end
 
 function Level2:draw() 
-    love.graphics.translate(0, self.scrollTimer * -100)
+    love.graphics.translate(0, self.scrollTimer * -self.scrollSpeed)
 
     self.world:draw()
 
@@ -102,6 +123,14 @@ function Level2:draw()
       love.graphics.polygon("fill", self.objects.edges[i].body:getWorldPoints(self.objects.edges[i].shape:getPoints()))
     end
 
+    if self.isGameOver then
+      love.graphics.translate(0, self.scrollTimer * self.scrollSpeed)
+
+
+      love.graphics.setColor(1, 0, 0)
+      love.graphics.setFont(assets.fonts.fontBig)
+      love.graphics.printf("YOU DIED", 0, hScr / 2 - 50, wScr, "center")
+    end
 end
 
 return Level2
