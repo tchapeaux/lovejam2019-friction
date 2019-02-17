@@ -30,13 +30,24 @@ function Level2:init()
     edgeLeft.body = love.physics.newBody(self.world._w, 0, 2500)
     edgeLeft.shape = love.physics.newRectangleShape(100, 5000)
     edgeLeft.fixture = love.physics.newFixture(edgeLeft.body, edgeLeft.shape); --attach shape to body
+    edgeLeft.fixture:setFriction(0.6)
     table.insert(self.objects.edges, edgeLeft)
     local edgeRight = {}
     edgeRight.body = love.physics.newBody(self.world._w, wScr, 2500)
     edgeRight.shape = love.physics.newRectangleShape(100, 5000)
     edgeRight.fixture = love.physics.newFixture(edgeRight.body, edgeRight.shape); --attach shape to body
     table.insert(self.objects.edges, edgeRight)
+    edgeRight.fixture:setFriction(0.6)
 
+
+    self.objects.tutorialArea = {}
+
+    local o ={}
+    o.body = love.physics.newBody(self.world._w, wScr / 5, 300)
+    o.shape = love.physics.newRectangleShape(2 * wScr / 3, 50)
+    o.fixture = love.physics.newFixture(o.body, o.shape, 1)
+    o.fixture:setFriction(0.6)
+    table.insert(self.objects.tutorialArea, o)
 
     self.objects.walls = {}
     local _sprites = {
@@ -53,7 +64,7 @@ function Level2:init()
       objectFromSprite(newBlock, self.world._w, _sprites[1 + (i % #_sprites)], false)
       newBlock.body:setPosition(
           0.1 * wScr + math.random() * (0.8 * wScr),
-          300 + 300 * i + ((-0.5 + math.random()) * 100) 
+           400 + 100 * i + ((-0.5 + math.random()) * 50) 
       )
       table.insert(self.objects.walls, newBlock)
     end
@@ -86,6 +97,9 @@ function Level2:draw()
     end
 
     love.graphics.setColor(94 / 255, 8 / 255, 2 / 255) -- set the drawing color to grey for the blocks
+    love.graphics.polygon("fill", self.objects.tutorialArea[1].body:getWorldPoints(self.objects.tutorialArea[1].shape:getPoints()))
+
+
     for i=1,#self.objects.edges do
       love.graphics.polygon("fill", self.objects.edges[i].body:getWorldPoints(self.objects.edges[i].shape:getPoints()))
     end
