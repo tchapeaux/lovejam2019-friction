@@ -2,6 +2,7 @@ assets = {}
 
 assets.finger = love.graphics.newImage("assets/finger.png")
 assets.particle = love.graphics.newImage("assets/particle.png")
+assets.ticket = love.graphics.newImage("assets/ticket.png")
 assets.title = love.graphics.newImage("assets/titleScreenStart.png")
 
 assets.level2 = {}

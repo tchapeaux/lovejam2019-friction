@@ -60,7 +60,8 @@ function Level2:init()
         assets.level2.two_euros,
         assets.level2.wallet
     }
-    for i = 1,50 do
+    local nbOfObjects = 20
+    for i = 1,nbOfObjects do
       local newBlock = {}
       objectFromSprite(newBlock, self.world._w, _sprites[1 + (i % #_sprites)], false)
       newBlock.body:setPosition(
@@ -70,9 +71,23 @@ function Level2:init()
       table.insert(self.objects.walls, newBlock)
     end
 
-    --initial graphics setup
-    love.graphics.setBackgroundColor(61 / 255, 30 / 255, 12 / 255) --set the background color to a nice blue
+    self.endOfObjects = 400 + nbOfObjects * 100 + 50
 
+    -- ticket
+    self.objects.ticket = {}
+    objectFromSprite(self.objects.ticket, self.world._w, assets.ticket, false)
+    self.objects.ticket.body:setPosition(wScr / 2, self.endOfObjects + 200)
+
+    -- GROUND below ticket
+    local o ={}
+    o.body = love.physics.newBody(self.world._w, wScr / 2, self.endOfObjects + 250)
+    o.shape = love.physics.newRectangleShape(wScr, 20)
+    o.fixture = love.physics.newFixture(o.body, o.shape, 1)
+    o.fixture:setFriction(0.6)
+    self.objects.ground = o
+
+    --initial graphics setup
+    love.graphics.setBackgroundColor(61 / 255, 30 / 255, 12 / 255)
 end
 
 function Level2:update(dt) 
@@ -80,11 +95,13 @@ function Level2:update(dt)
     
     if not self.isGameOver and self.scrollStart then
       self.scrollTimer = self.scrollTimer + dt
+
+      -- bound
+      self.scrollTimer = math.min(self.scrollTimer, (self.endOfObjects + 290 - hScr) / self.scrollSpeed)
     end
 
     if not self.scrollStart then
       local sX, sY = self.player.body:getLinearVelocity()
-      print(sX)
       if sX ~= 0 then
         self.scrollStart = true
       end
@@ -110,15 +127,19 @@ function Level2:draw()
 
     self.player:draw()
    
-    love.graphics.setColor(0.20, 0.20, 0.20) -- set the drawing color to grey for the blocks
     for i=1,#self.objects.walls do
       drawSpriteObject(self.objects.walls[i])
     end
 
-    love.graphics.setColor(94 / 255, 8 / 255, 2 / 255) -- set the drawing color to grey for the blocks
+    -- rectangle blocks
+    love.graphics.setColor(94 / 255, 8 / 255, 2 / 255)
     love.graphics.polygon("fill", self.objects.tutorialArea[1].body:getWorldPoints(self.objects.tutorialArea[1].shape:getPoints()))
+    love.graphics.polygon("fill", self.objects.ground.body:getWorldPoints(self.objects.ground.shape:getPoints()))
 
+    -- ticket draw
+    drawSpriteObject(self.objects.ticket)
 
+    love.graphics.setColor(94 / 255, 8 / 255, 2 / 255)
     for i=1,#self.objects.edges do
       love.graphics.polygon("fill", self.objects.edges[i].body:getWorldPoints(self.objects.edges[i].shape:getPoints()))
     end
