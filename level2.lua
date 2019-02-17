@@ -1,5 +1,7 @@
 local World = require('world')
 local Player = require('player')
+local GameOver = require('gameover')
+local YouWin = require('youWin')
 
 local Level2 ={}
 
@@ -23,8 +25,6 @@ function Level2:init()
     self.objects = {} -- table to hold all our physical objects
    
     self.player = Player:new(self.world._w)
-    self.isGameOver = false
-    self.isYouWin = false
 
     -- edges of the world
     self.objects.edges = {}
@@ -96,7 +96,7 @@ end
 function Level2:update(dt) 
     self.world:update(dt) --this puts the world into motion
     
-    if not self.isGameOver and self.scrollStart then
+    if self.scrollStart then
       self.scrollTimer = self.scrollTimer + dt
 
       -- bound
@@ -114,12 +114,10 @@ function Level2:update(dt)
 
     -- Check if player is dead
     local _, y = self.player.body:getWorldCenter()
-    if not self.isGameOver and (
-      y + self.player.shapeHeight / 2 < self.scrollTimer * self.scrollSpeed
-      or y - self.player.shapeHeight / 2> self.scrollTimer * self.scrollSpeed + hScr
-    ) then
+    if y + self.player.shapeHeight / 2 < self.scrollTimer * self.scrollSpeed or y - self.player.shapeHeight / 2> self.scrollTimer * self.scrollSpeed + hScr then
         assets.music.level2:stop()
-        self.isGameOver = true
+        currentView = GameOver:new()
+        currentView:init()
     end
 
     -- Check winning condition
@@ -128,7 +126,8 @@ function Level2:update(dt)
     for i=1,#collisionList do
       local fixA, fixB = collisionList[i]:getFixtures ()
       if fixA:getUserData() == 'ticket' or fixB:getUserData() == 'ticket' then
-        self.isYouWin = true
+        currentView = YouWin:new()
+        currentView:init()
       end
     end
   end
@@ -155,25 +154,6 @@ function Level2:draw()
     love.graphics.setColor(94 / 255, 8 / 255, 2 / 255)
     for i=1,#self.objects.edges do
       love.graphics.polygon("fill", self.objects.edges[i].body:getWorldPoints(self.objects.edges[i].shape:getPoints()))
-    end
-
-    if self.isGameOver then
-      love.graphics.translate(0, self.scrollTimer * self.scrollSpeed)
-
-
-      love.graphics.setColor(1, 0, 0)
-      love.graphics.setFont(assets.fonts.fontBig)
-      love.graphics.printf("YOU DIED", 0, hScr / 2 - 50, wScr, "center")
-    end
-
-    if self.isYouWin then
-      love.graphics.translate(0, self.scrollTimer * self.scrollSpeed)
-
-
-      love.graphics.setColor(0, 0, 1)
-      love.graphics.setFont(assets.fonts.fontBig)
-      love.graphics.printf("YOU WIN", 0, hScr / 2 - 50, wScr, "center")
-
     end
   end
 

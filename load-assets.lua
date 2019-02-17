@@ -5,6 +5,9 @@ assets.particle = love.graphics.newImage("assets/particle.png")
 assets.ticket = love.graphics.newImage("assets/ticket.png")
 assets.title = love.graphics.newImage("assets/titleScreenStart.png")
 
+assets.gameOver = love.graphics.newImage("assets/LostScreen.png")
+assets.youWin = love.graphics.newImage("assets/WinScreen.png")
+
 assets.level2 = {}
 assets.level2.anim_2_1 = love.graphics.newImage("assets/titleScreen1.png")
 assets.level2.anim_2_2 = love.graphics.newImage("assets/titleScreen2.png")
