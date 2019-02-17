@@ -51,12 +51,12 @@ function Level2:init()
         assets.level2.credit_card,
         assets.level2.fifty_cents,
         assets.level2.phone,
-        assets.level2.scissors,
+        assets.level2.gumBox,
         assets.level2.one_euro,
         assets.level2.two_euros,
         assets.level2.wallet
     }
-    local nbOfObjects = 50
+    local nbOfObjects = 30
     math.randomseed(51934) -- chosen arbitrarily
     for i = 1,nbOfObjects do
       local newBlock = {}
@@ -144,6 +144,11 @@ function Level2:draw()
     love.graphics.setColor(94 / 255, 8 / 255, 2 / 255)
     love.graphics.polygon("fill", self.objects.tutorialArea[1].body:getWorldPoints(self.objects.tutorialArea[1].shape:getPoints()))
     love.graphics.polygon("fill", self.objects.ground.body:getWorldPoints(self.objects.ground.shape:getPoints()))
+
+    if not self.startScrolling then
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.draw(assets.level2.instructions, 0, 0)
+    end
 
     -- ticket draw
     drawSpriteObject(self.objects.ticket)

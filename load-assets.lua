@@ -9,10 +9,12 @@ assets.gameOver = love.graphics.newImage("assets/LostScreen.png")
 assets.youWin = love.graphics.newImage("assets/WinScreen.png")
 
 assets.level2 = {}
+assets.level2.instructions = love.graphics.newImage("assets/instructions.png")
 assets.level2.anim_2_1 = love.graphics.newImage("assets/titleScreen1.png")
 assets.level2.anim_2_2 = love.graphics.newImage("assets/titleScreen2.png")
 assets.level2.credit_card = love.graphics.newImage("assets/credt-card.png")
 assets.level2.fifty_cents = love.graphics.newImage("assets/fifty-cents.png")
+assets.level2.gumBox = love.graphics.newImage('assets/gumBox.png')
 assets.level2.one_euro = love.graphics.newImage("assets/one-euro.png")
 assets.level2.phone = love.graphics.newImage("assets/phone.png")
 assets.level2.scissors = love.graphics.newImage("assets/scissors.png")
