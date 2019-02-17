@@ -145,17 +145,17 @@ function Level2:draw()
     love.graphics.polygon("fill", self.objects.tutorialArea[1].body:getWorldPoints(self.objects.tutorialArea[1].shape:getPoints()))
     love.graphics.polygon("fill", self.objects.ground.body:getWorldPoints(self.objects.ground.shape:getPoints()))
 
-    if not self.startScrolling then
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.draw(assets.level2.instructions, 0, 0)
-    end
-
     -- ticket draw
     drawSpriteObject(self.objects.ticket)
 
     love.graphics.setColor(94 / 255, 8 / 255, 2 / 255)
     for i=1,#self.objects.edges do
       love.graphics.polygon("fill", self.objects.edges[i].body:getWorldPoints(self.objects.edges[i].shape:getPoints()))
+    end
+
+    if not self.scrollStart then
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.draw(assets.level2.instructions, 0, 0)
     end
   end
 
