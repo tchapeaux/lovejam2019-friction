@@ -116,7 +116,7 @@ function Level2:update(dt)
     end
 
     -- Check winning condition
-    local collisionList = self.world._w:getContactList()
+    local collisionList = self.world._w:getContacts()
 
     for i=1,#collisionList do
       local fixA, fixB = collisionList[i]:getFixtures ()
