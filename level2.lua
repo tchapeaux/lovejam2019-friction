@@ -45,8 +45,8 @@ function Level2:init()
     self.objects.tutorialArea = {}
 
     local o ={}
-    o.body = love.physics.newBody(self.world._w, wScr / 5, 300)
-    o.shape = love.physics.newRectangleShape(2 * wScr / 3, 50)
+    o.body = love.physics.newBody(self.world._w, wScr / 3, 300)
+    o.shape = love.physics.newRectangleShape(2 * wScr / 2, 50)
     o.fixture = love.physics.newFixture(o.body, o.shape, 1)
     o.fixture:setFriction(0.6)
     table.insert(self.objects.tutorialArea, o)
@@ -61,7 +61,8 @@ function Level2:init()
         assets.level2.two_euros,
         assets.level2.wallet
     }
-    local nbOfObjects = 20
+    local nbOfObjects = 40
+    math.randomseed(51934)
     for i = 1,nbOfObjects do
       local newBlock = {}
       objectFromSprite(newBlock, self.world._w, _sprites[1 + (i % #_sprites)], false)
