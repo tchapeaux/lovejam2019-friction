@@ -6,6 +6,6 @@ function love.conf(t)
  
     t.window.title = "The frictionful life of a finger"         -- The window title (string)
     t.window.icon = "assets/icon.png"                 -- Filepath to an image to use as the window's icon (string)
-    t.window.width = 500                -- The window width (number)
-    t.window.height = 500               -- The window height (number)
+    t.window.width = 600                -- The window width (number)
+    t.window.height = 600               -- The window height (number)
 end
