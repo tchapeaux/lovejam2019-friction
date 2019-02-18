@@ -9,18 +9,20 @@ end
 
 function Title:init() 
     assets.music.title:play()
+    love.graphics.setBackgroundColor(107 / 255, 191 / 255, 227 / 255)
+
+    self.fadeTimer = 0
 end
 
 function Title:update(dt) 
-
+    self.fadeTimer = self.fadeTimer + dt
 end
 
 function Title:draw() 
-    love.graphics.setBackgroundColor(0, 0, 0)
+    love.graphics.setColor(1, 1, 1, math.min(self.fadeTimer * 2, 1))
 
     love.graphics.draw(assets.title, 0, 0)
 
-    love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(assets.fonts.fontNormal)
     love.graphics.printf('PRESS ENTER TO START', 0, hScr * 0.8, wScr, 'center')
 end
