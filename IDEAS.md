@@ -1,6 +1,5 @@
 Quelques trucs qu'on pourrait ajouter pour améliorer :
 
-- dernier obstacle avant le ticket
 - changer la Font
 
 - Meilleur particle system (mieux gérer la direction)
