@@ -1,0 +1,3 @@
+[submodule "thirdparty/splashes"]
+	path = thirdparty/splashes
+	url = git@github.com:love2d-community/splashes.git
