@@ -70,19 +70,27 @@ function Level2:init()
 
     self.endOfObjects = 400 + nbOfObjects * 100 + 50
 
+    -- LAST OBSTACLE above ticket
+    local o = {}
+    o.body = love.physics.newBody(self.world._w, wScr / 2, self.endOfObjects + 300)
+    o.shape = love.physics.newRectangleShape(wScr * 0.7, 20)
+    o.fixture = love.physics.newFixture(o.body, o.shape, 1)
+    o.fixture:setFriction(0.6)
+    self.objects.lastObstacles = o
+
     -- ticket
     self.objects.ticket = {}
     objectFromSprite(self.objects.ticket, self.world._w, assets.ticket, false)
-    self.objects.ticket.body:setPosition(wScr / 2, self.endOfObjects + 200)
+    self.objects.ticket.body:setPosition(wScr / 2, self.endOfObjects + 400)
     self.objects.ticket.fixture:setUserData('ticket')
 
     -- GROUND below ticket
-    local o ={}
-    o.body = love.physics.newBody(self.world._w, wScr / 2, self.endOfObjects + 250)
-    o.shape = love.physics.newRectangleShape(wScr, 20)
-    o.fixture = love.physics.newFixture(o.body, o.shape, 1)
-    o.fixture:setFriction(0.6)
-    self.objects.ground = o
+    local o2 ={}
+    o2.body = love.physics.newBody(self.world._w, wScr / 2, self.endOfObjects + 500)
+    o2.shape = love.physics.newRectangleShape(wScr, 20)
+    o2.fixture = love.physics.newFixture(o2.body, o2.shape, 1)
+    o2.fixture:setFriction(0.6)
+    self.objects.ground = o2
 
     --initial graphics setup
     love.graphics.setBackgroundColor(61 / 255, 30 / 255, 12 / 255)
@@ -95,7 +103,7 @@ function Level2:update(dt)
       self.scrollTimer = self.scrollTimer + dt
 
       -- bound
-      self.scrollTimer = math.min(self.scrollTimer, (self.endOfObjects + 290 - hScr) / self.scrollSpeed)
+      self.scrollTimer = math.min(self.scrollTimer, (self.endOfObjects + 520 - hScr) / self.scrollSpeed)
     end
 
     if not self.scrollStart then
@@ -144,6 +152,7 @@ function Level2:draw()
     love.graphics.setColor(94 / 255, 8 / 255, 2 / 255)
     love.graphics.polygon("fill", self.objects.tutorialArea[1].body:getWorldPoints(self.objects.tutorialArea[1].shape:getPoints()))
     love.graphics.polygon("fill", self.objects.ground.body:getWorldPoints(self.objects.ground.shape:getPoints()))
+    love.graphics.polygon("fill", self.objects.lastObstacles.body:getWorldPoints(self.objects.lastObstacles.shape:getPoints()))
 
     -- ticket draw
     drawSpriteObject(self.objects.ticket)
